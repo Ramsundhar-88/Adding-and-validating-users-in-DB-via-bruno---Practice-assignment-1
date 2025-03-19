@@ -28,6 +28,14 @@ app.get('/', (req, res) => {
   res.send('Server is running!');
 });
 
+app.get('/register', async (req, res) => {
+  try {
+    const allUsers = await User.find();
+    res.status(200).json(allUsers);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch users', details: error.message });
+  }
+});
 app.post('/register', async (req, res) => {
   try {
     const { username, email, password } = req.body;
